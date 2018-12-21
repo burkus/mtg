@@ -19,11 +19,12 @@ Edge.prototype.draw = function() {
   pop();
 }
 
-var G;
+let G, w, h;
 window.running = true;
 const setup = () => {
-  createCanvas(800, 800);
-  var g = [
+  w = 800, h = 800;
+  createCanvas(w, h);
+  let lst = [
     [0, 1, 2, 3, 4],
     [1, 2, 3],
     [2, 3],
@@ -31,7 +32,16 @@ const setup = () => {
     [2, 3, 4]
   ];
 
-  G = new Graph().fromAdjMtx(g);
+  let mtx = [
+    [0, 0, 0, 0],
+    [1, 0, 0, 0],
+    [1, 1, 0, 0],
+    [1, 1, 1, 0]
+  ];
+
+  // G = Graph.fromAdjLst(lst, w, h);
+  G = Graph.fromAdjMtx(mtx, w, h);
+  window.Graph = Graph;
   console.log(G);
 }
 

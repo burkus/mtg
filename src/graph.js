@@ -34,17 +34,41 @@ Graph.prototype.setEdgeDraw = function(f) {
   Edge.setDraw(f);
 }
 
-Graph.prototype.fromAdjMtx = function(mtx) {
-  var i, j, vertices = [], edges = [];
-  let w = window.width, h = window.height;
-  for(i = 0; i < mtx.length; i++) {
-    vertices[i] = new Vertex(w / 2, h / 2, {i, j});
+Graph.consVertices = function(lst, w, h) {
+  let vertices = [];
+  h = h || w;
+  for(let i = 0; i < lst.length; i++) {
+    vertices[i] = new Vertex(w / 2, h / 2);
   }
+  return vertices;
+}
 
-  for(i = 0; i < mtx.length; i += 1) {
-    for(j = 0; j < mtx[i].length; j += 1) {
-      var vIndex = mtx[i][j];
-      var edge = new Edge(vertices[i], vertices[vIndex]);
+Graph.fromAdjMtx = function(mtx, w, h) {
+  let i, j, edges = [];
+  h = h || w;
+  let vertices = Graph.consVertices(mtx, w, h);
+
+  for(i = 0; i < mtx.length; i++) {
+    for(j = 0; j < mtx[i].length; j++) {
+      let hasEdgeAtIndex = mtx[i][j];
+      if(hasEdgeAtIndex) {
+        let edge = new Edge(vertices[i], vertices[j]);
+        edges.push(edge);
+      }
+    }
+  }
+  return new Graph(vertices, edges);
+}
+
+Graph.fromAdjLst = function(lst, w, h) {
+  let i, j, edges = [];
+  h = h || w;
+  let vertices = Graph.consVertices(lst, w, h);
+
+  for(i = 0; i < lst.length; i++) {
+    for(j = 0; j < lst[i].length; j++) {
+      let vIndex = lst[i][j];
+      let edge = new Edge(vertices[i], vertices[vIndex]);
       edges.push(edge);
     }
   }
