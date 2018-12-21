@@ -22,7 +22,7 @@ Edge.prototype.draw = function() {
 let G, w, h;
 window.running = true;
 const setup = () => {
-  w = 800, h = 800;
+  w = window.windowWidth, h = window.windowHeight;
   createCanvas(w, h);
   let lst = [
     [0, 1, 2, 3, 4],
@@ -39,10 +39,29 @@ const setup = () => {
     [1, 1, 1, 0]
   ];
 
+  window.mStr = " \
+    0 1 0 0 1 1 0 0 0 0 \
+    1 0 1 0 0 0 1 0 0 0 \
+    0 1 0 1 0 0 0 1 0 0 \
+    0 0 1 0 1 0 0 0 1 0 \
+    1 0 0 1 0 0 0 0 0 1 \
+    1 0 0 0 0 0 0 1 1 0 \
+    0 1 0 0 0 0 0 0 1 1 \
+    0 0 1 0 0 1 0 0 0 1 \
+    0 0 0 1 0 1 1 0 0 0 \
+    0 0 0 0 1 0 1 1 0 0 ";
+
+  mtx = Graph.mtxFromStr(mStr);
+
+
   // G = Graph.fromAdjLst(lst, w, h);
   G = Graph.fromAdjMtx(mtx, w, h);
+  window.G = G;
+  G.vertices.forEach(v => {
+    v.x = random(w / 2);
+    v.y = random(h / 2);
+  });
   window.Graph = Graph;
-  console.log(G);
 }
 
 const draw = () => {

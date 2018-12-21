@@ -34,6 +34,26 @@ Graph.prototype.setEdgeDraw = function(f) {
   Edge.setDraw(f);
 }
 
+Graph.mtxFromStr = function(str) {
+  let strs = str.split(' ').filter(e => /\d/.test(e));
+  // if(strs.length / len !== 0) {
+  //   throw "Matrix is not uniform; this function requires a square NxN matrix";
+  // }
+  let l = Math.floor( Math.sqrt(strs.length) );
+  let mtx = [];
+  let i = 0;
+  let j = 1;
+  while(i < strs.length) {
+    console.log(i, j *l);
+    let row = strs.slice(i, j * l);
+    row = row.map(e => parseInt(e));
+    mtx.push(row);
+    i += l;
+    j++;
+  }
+  return mtx;
+}
+
 Graph.consVertices = function(lst, w, h) {
   let vertices = [];
   h = h || w;

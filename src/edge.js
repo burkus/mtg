@@ -6,7 +6,7 @@ function Edge(from, to, length) {
   this.from = from;
   this.to = to;
   this.width = 2;
-  this.length = 200 || length;
+  this.length = 75 || length;
 }
 
 Edge.prototype.draw = function() {};
